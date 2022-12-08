@@ -44,7 +44,7 @@ function Homepage() {
           Top Stories
         </p>
         <div>
-          <button>View Bookmark</button>
+          <button onClick={() => navigate("/bookmarks")}>View Bookmark</button>
         </div>
       </div>
       <div

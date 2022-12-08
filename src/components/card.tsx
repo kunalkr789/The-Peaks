@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "../App.css";
 import { ReactComponent as Logo } from "../assets/logo.svg";
 
@@ -7,8 +8,13 @@ interface ICardProps {
 }
 
 function Card({ data }: ICardProps) {
+  const navigate = useNavigate();
+
   return (
-    <li className="cards_item">
+    <li
+      onClick={() => navigate(`/article?id=${data?.id}`)}
+      className="cards_item"
+    >
       <div className="card">
         <div className="card_image">
           <Logo />

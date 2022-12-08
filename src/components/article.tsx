@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-// import Logo from "./logo";
 import { ReactComponent as Logo } from "../assets/logo.svg";
 import useQuery from "../hooks/useQuery";
 import { AppState } from "../state/reducers/app/app-reducer";
@@ -14,10 +13,13 @@ function Article() {
   const [bookmarkAdded, setBookmarkAdded] = useState(
     appState.bookmarks.includes((_: any) => _?.id === id)
   );
+
   useEffect(() => {
-    setBookmarkAdded(appState.bookmarks.includes((_: any) => _?.id === id));
+    const data = appState.bookmarks.find((_: any) => _?.id === id);
+    if (data) setBookmarkAdded(true);
+    else setBookmarkAdded(false);
   }, [appState.bookmarks]);
-  console.log(bookmarkAdded);
+
   return (
     <div
       style={{

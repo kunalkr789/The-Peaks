@@ -8,6 +8,7 @@ import { useStoreContext } from "./state/the-peaks-context";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Article from "./components/article";
 import Notification from "./components/notification";
+import Bookmarks from "./components/bookmarks";
 
 function App() {
   const { dispatch, state } = useStoreContext();
@@ -27,6 +28,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Homepage />} />
           <Route path="/article" element={<Article />} />
+          <Route path="/bookmarks" element={<Bookmarks />} />
         </Routes>
       </BrowserRouter>
       <Notification message="notiii" color="red" />
