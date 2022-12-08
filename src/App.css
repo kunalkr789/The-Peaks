@@ -253,3 +253,13 @@ img {
   border-radius: 50%;
   animation: spinner 1.5s linear infinite;
 }
+
+.scrollBar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.scrollBar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}

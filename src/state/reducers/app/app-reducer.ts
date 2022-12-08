@@ -64,7 +64,7 @@ function reducer(state: AppState, action: { type: string; payload?: any }) {
     case `${fetchSearchResultsAction}-completed`:
       return {
         ...state,
-        searchResults: action.payload,
+        searchResults: state.searchResults.concat(action.payload),
         loading: false,
       };
     case `${fetchSearchResultsAction}-rejected`:

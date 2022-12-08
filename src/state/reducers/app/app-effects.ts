@@ -21,8 +21,8 @@ export const fetchSportsNewsEffect = () =>
     return response;
   });
 
-export const fetchSearchResultsEffect = (str: string) =>
+export const fetchSearchResultsEffect = (str: string, page: number) =>
   createAsyncThunk(fetchSearchResultsAction, async function () {
-    const response = await getSearchResults(str);
+    const response = await getSearchResults(str, page);
     return response;
   });

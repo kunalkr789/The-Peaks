@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { ReactComponent as Logo } from "../assets/logo.svg";
 import { useStoreContext } from "../state/the-peaks-context";
 import { AppState } from "../state/reducers/app/app-reducer";
@@ -6,10 +6,12 @@ import { useNavigate } from "react-router-dom";
 import BookmarkButton from "./bookmarkButton";
 import SortAndFilter from "./sortAndFilter";
 import Card from "./card";
+import { fetchSearchResultsEffect } from "../state/reducers/app/app-effects";
 
 function SearchResults() {
-  const { state } = useStoreContext();
+  const { dispatch, state } = useStoreContext();
   const navigate = useNavigate();
+  const ref = useRef<HTMLDivElement>(null);
   const appState = state.app as AppState;
   const { searchResults } = appState;
   const [data, setData] = useState([...searchResults]);
@@ -38,11 +40,32 @@ function SearchResults() {
 
   return (
     <div
+      ref={ref}
+      className="scrollBar"
       style={{
-        minHeight: "90vh",
+        maxHeight: "200vh",
         padding: "3vw 11.45vw 11.45vw 11.45vw",
         display: "flex",
         flexDirection: "column",
+        overflow: "auto",
+      }}
+      onScrollCapture={(e) => {
+        const target = e.target as HTMLDivElement;
+        let bottom = target.scrollHeight - target.clientHeight;
+        let distanceBottom = Math.round((bottom / 100) * 22);
+        if (
+          target.scrollTop > bottom - distanceBottom &&
+          appState.searchResults.length % 10 === 0 &&
+          !appState.loading
+        ) {
+          dispatch(
+            fetchSearchResultsEffect(
+              appState.searchQuery,
+              appState.searchResults.length / 10
+            )
+          );
+          if (ref.current) ref.current.scrollIntoView();
+        }
       }}
     >
       <div

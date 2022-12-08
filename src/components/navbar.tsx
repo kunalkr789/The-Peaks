@@ -53,7 +53,7 @@ function Navbar() {
                   payload: e.target.value,
                 });
                 if (e.target.value) {
-                  dispatch(fetchSearchResultsEffect(e.target.value));
+                  dispatch(fetchSearchResultsEffect(e.target.value, 1));
                 }
               }}
               onFocus={() => setIsFocused(true)}
