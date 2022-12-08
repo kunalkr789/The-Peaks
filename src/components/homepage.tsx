@@ -7,12 +7,13 @@ import { useNavigate } from "react-router-dom";
 import BookmarkButton from "./bookmarkButton";
 import SearchResults from "./searchResults";
 import SortAndFilter from "./sortAndFilter";
+import LoadingPage from "./loadingPage";
 
 function Homepage() {
   const { dispatch, state } = useStoreContext();
   const navigate = useNavigate();
   const appState = state.app as AppState;
-  const { list, sports } = appState;
+  const { list, sports, loading } = appState;
   const [data, setData] = useState([...list]);
   const [sportsData, setSportsData] = useState([...sports]);
   const style: React.CSSProperties = {
@@ -69,7 +70,9 @@ function Homepage() {
     }
   }
 
-  return appState.searchResults.length && appState.searchQuery ? (
+  return loading ? (
+    <LoadingPage />
+  ) : appState.searchResults.length && appState.searchQuery ? (
     <SearchResults />
   ) : (
     <div
