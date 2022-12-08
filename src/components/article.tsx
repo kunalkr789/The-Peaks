@@ -1,15 +1,22 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { ReactComponent as Logo } from "../assets/logo.svg";
 import useQuery from "../hooks/useQuery";
 import { AppState } from "../state/reducers/app/app-reducer";
 import { useStoreContext } from "../state/the-peaks-context";
+import BookmarkButton from "./bookmarkButton";
+import SearchResults from "./searchResults";
 
 function Article() {
   const { dispatch, state } = useStoreContext();
   const appState = state.app as AppState;
+  const navigate = useNavigate();
   const query = useQuery();
   const id = query.get("id");
-  const data = appState.list.find((_) => _?.id === id);
+  const data =
+    appState.list.find((_) => _?.id === id) ||
+    appState.searchResults.find((_) => _?.id === id) ||
+    appState.sports.find((_) => _?.id === id);
   const [bookmarkAdded, setBookmarkAdded] = useState(
     appState.bookmarks.includes((_: any) => _?.id === id)
   );
@@ -20,7 +27,9 @@ function Article() {
     else setBookmarkAdded(false);
   }, [appState.bookmarks]);
 
-  return (
+  return appState.searchResults.length && appState.searchQuery && !id ? (
+    <SearchResults />
+  ) : (
     <div
       style={{
         minHeight: "90vh",
@@ -38,13 +47,14 @@ function Article() {
         }}
       >
         {!bookmarkAdded ? (
-          <button
+          <BookmarkButton
+            text="Add Bookmark"
             onClick={() => {
               dispatch({
                 type: "app/showNotification",
                 payload: {
                   show: true,
-                  message: "saved to bookmarks",
+                  message: "SAVED TO BOOKMARKS",
                   type: "add",
                 },
               });
@@ -59,18 +69,16 @@ function Article() {
                 });
               }, 3000);
             }}
-            style={{ width: "fit-content" }}
-          >
-            Add Bookmark
-          </button>
+          />
         ) : (
-          <button
+          <BookmarkButton
+            text="Remove Bookmark"
             onClick={() => {
               dispatch({
                 type: "app/showNotification",
                 payload: {
                   show: true,
-                  message: "saved to bookmarks",
+                  message: "REMOVED FROM BOOKMARKS",
                   type: "delete",
                 },
               });
@@ -85,10 +93,7 @@ function Article() {
                 });
               }, 3000);
             }}
-            style={{ width: "fit-content" }}
-          >
-            Remove Bookmark
-          </button>
+          />
         )}
         <p style={{ fontSize: ".75rem" }}>{data?.webPublicationDate}</p>
         <p style={{ fontSize: "2.125rem", fontWeight: 700 }}>

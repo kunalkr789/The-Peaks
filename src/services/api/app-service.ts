@@ -16,7 +16,7 @@ export const getSportsNews = async () => {
 };
 
 export const getSearchResults = async (searchQuery: string) => {
-  const url = `${serverUrl}/search?q=${searchQuery}&api-key=${apiKey}`;
+  const url = `${serverUrl}/search?q=${searchQuery}&api-key=${apiKey}&show-fields=all&show-elements=all`;
   const response = await fetch(url);
   const formattedResponse = await response.json();
   return formattedResponse.response.results;

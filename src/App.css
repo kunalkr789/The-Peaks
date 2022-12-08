@@ -223,3 +223,16 @@ img {
   margin-top: 35px;
   text-align: center;
 }
+
+.bookmark {
+  background-color: #09357b;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.06);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 12px 4px;
+  gap: 6px;
+  color: #ffffff;
+}

@@ -12,6 +12,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Article from "./components/article";
 import Notification from "./components/notification";
 import Bookmarks from "./components/bookmarks";
+import SearchResults from "./components/searchResults";
 
 function App() {
   const { dispatch, state } = useStoreContext();
@@ -28,21 +29,24 @@ function App() {
   return (
     <div className="App">
       <Navbar />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Homepage />} />
-          <Route path="/article" element={<Article />} />
-          <Route path="/bookmarks" element={<Bookmarks />} />
-        </Routes>
-      </BrowserRouter>
-      <Notification message="notiii" color="red" />
-      <div
-        style={{
-          width: "100%",
-          height: "8.75vw",
-          backgroundColor: "#09357B",
-        }}
-      ></div>
+      <div style={{ paddingTop: "8.75vw" }}>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Homepage />} />
+            <Route path="/article" element={<Article />} />
+            <Route path="/bookmarks" element={<Bookmarks />} />
+            <Route path="/search" element={<SearchResults />} />
+          </Routes>
+        </BrowserRouter>
+        <Notification message={appState.notification.message} color="red" />
+        <div
+          style={{
+            width: "100%",
+            height: "8.75vw",
+            backgroundColor: "#09357B",
+          }}
+        ></div>
+      </div>
     </div>
   );
 }

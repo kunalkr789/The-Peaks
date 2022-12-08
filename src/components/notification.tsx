@@ -3,6 +3,7 @@ import "../App.css";
 import { ReactComponent as Logo } from "../assets/logo.svg";
 import { AppState } from "../state/reducers/app/app-reducer";
 import { useStoreContext } from "../state/the-peaks-context";
+import { ReactComponent as BookmarkIcon } from "../assets/bookmark.svg";
 
 interface INotificationProps {
   message: string;
@@ -28,14 +29,19 @@ function Notification({ message, color }: INotificationProps) {
         bottom: 0,
         height: "32px",
         textAlign: "center",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
       }}
     >
+      <BookmarkIcon />
       <p
         style={{
           textAlign: "center",
           color: "#fff",
           fontSize: ".875rem",
           fontWeight: 700,
+          paddingLeft: "10px",
         }}
       >
         {message}

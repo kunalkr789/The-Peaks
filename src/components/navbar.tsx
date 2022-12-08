@@ -18,6 +18,7 @@ function Navbar() {
         width: "100%",
         height: "8.75vw",
         backgroundColor: "#09357B",
+        position: "fixed",
       }}
     >
       <div
@@ -51,8 +52,9 @@ function Navbar() {
                   type: "app/setSearchQuery",
                   payload: e.target.value,
                 });
-                if (e.target.value)
+                if (e.target.value) {
                   dispatch(fetchSearchResultsEffect(e.target.value));
+                }
               }}
               onFocus={() => setIsFocused(true)}
               onBlur={() => setIsFocused(false)}

@@ -124,7 +124,7 @@ function reducer(state: AppState, action: { type: string; payload?: any }) {
       return {
         ...state,
         searchQuery: "",
-        searchResults: [],
+        //searchResults: [],
       };
     default:
       return {
