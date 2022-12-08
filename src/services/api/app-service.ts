@@ -7,3 +7,17 @@ export const getTopNews = async () => {
   const formattedResponse = await response.json();
   return formattedResponse.response.results;
 };
+
+export const getSportsNews = async () => {
+  const url = `${serverUrl}/sport?api-key=${apiKey}&show-fields=all&show-elements=all`;
+  const response = await fetch(url);
+  const formattedResponse = await response.json();
+  return formattedResponse.response.results;
+};
+
+export const getSearchResults = async (searchQuery: string) => {
+  const url = `${serverUrl}/search?q=${searchQuery}&api-key=${apiKey}`;
+  const response = await fetch(url);
+  const formattedResponse = await response.json();
+  return formattedResponse.response.results;
+};

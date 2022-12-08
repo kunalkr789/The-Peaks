@@ -1,4 +1,8 @@
-import { fetchTopNewsAction } from "./app-effects";
+import {
+  fetchSearchResultsAction,
+  fetchSportsNewsAction,
+  fetchTopNewsAction,
+} from "./app-effects";
 
 export type AlertColor = "add" | "remove";
 const sliceName = "app";
@@ -15,7 +19,10 @@ export interface AppState {
   notification: Notification;
   list: any[];
   bookmarks: any[];
+  searchResults: any[];
   loading: boolean;
+  searchQuery: string;
+  sports: any[];
 }
 
 const initialState: AppState = {
@@ -25,7 +32,10 @@ const initialState: AppState = {
   },
   list: [],
   bookmarks: [],
+  searchResults: [],
   loading: false,
+  searchQuery: "",
+  sports: [],
 };
 
 function reducer(state: AppState, action: { type: string; payload?: any }) {
@@ -42,6 +52,38 @@ function reducer(state: AppState, action: { type: string; payload?: any }) {
         list: action.payload,
       };
     case `${fetchTopNewsAction}-rejected`:
+      return {
+        ...state,
+        loading: false,
+      };
+    case `${fetchSearchResultsAction}-pending`:
+      return {
+        ...state,
+        loading: true,
+      };
+    case `${fetchSearchResultsAction}-completed`:
+      return {
+        ...state,
+        searchResults: action.payload,
+        loading: false,
+      };
+    case `${fetchSearchResultsAction}-rejected`:
+      return {
+        ...state,
+        loading: false,
+      };
+    case `${fetchSportsNewsAction}-pending`:
+      return {
+        ...state,
+        loading: true,
+      };
+    case `${fetchSportsNewsAction}-completed`:
+      return {
+        ...state,
+        sports: action.payload,
+        loading: false,
+      };
+    case `${fetchSportsNewsAction}-rejected`:
       return {
         ...state,
         loading: false,
@@ -72,6 +114,17 @@ function reducer(state: AppState, action: { type: string; payload?: any }) {
       return {
         ...state,
         bookmarks: bookmarks ? JSON.parse(bookmarks) : [],
+      };
+    case "app/setSearchQuery":
+      return {
+        ...state,
+        searchQuery: action.payload,
+      };
+    case "app/clearSearchQuery":
+      return {
+        ...state,
+        searchQuery: "",
+        searchResults: [],
       };
     default:
       return {

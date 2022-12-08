@@ -2,7 +2,10 @@ import React, { useEffect } from "react";
 import "./App.css";
 import Homepage from "./components/homepage";
 import Navbar from "./components/navbar";
-import { fetchTopNewsEffect } from "./state/reducers/app/app-effects";
+import {
+  fetchSportsNewsEffect,
+  fetchTopNewsEffect,
+} from "./state/reducers/app/app-effects";
 import { AppState } from "./state/reducers/app/app-reducer";
 import { useStoreContext } from "./state/the-peaks-context";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -16,6 +19,7 @@ function App() {
 
   useEffect(() => {
     dispatch(fetchTopNewsEffect());
+    dispatch(fetchSportsNewsEffect());
     dispatch({
       type: "app/getBookmarks",
     });
@@ -32,6 +36,13 @@ function App() {
         </Routes>
       </BrowserRouter>
       <Notification message="notiii" color="red" />
+      <div
+        style={{
+          width: "100%",
+          height: "8.75vw",
+          backgroundColor: "#09357B",
+        }}
+      ></div>
     </div>
   );
 }
